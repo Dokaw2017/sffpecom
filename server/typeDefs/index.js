@@ -1,5 +1,6 @@
 import { gql } from "apollo-server-express";
 import post from "./post.js";
+import image from "./image.js";
 
 const linkSchema = gql`
   type Query {
@@ -10,4 +11,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, post];
+export default [linkSchema, post, image];
