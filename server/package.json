@@ -2,10 +2,11 @@
   "name": "ecommerce-gql",
   "version": "1.0.0",
   "description": "project for ssgql course",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -r esm .",
+    "dev": "nodemon -r esm"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,9 @@
   "dependencies": {
     "apollo-server-express": "^2.22.2",
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "helmet": "^4.4.1",
@@ -33,6 +36,7 @@
     "mongoose": "^5.12.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "yup": "^0.32.9"
   }
 }
