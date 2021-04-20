@@ -6,7 +6,7 @@ import User from "../models/User.js";
 const { verify } = jwt;
 
 const AuthMiddleware = async (req, res, next) => {
-  const authHeaders = req.get("Athorization");
+  const authHeaders = req.get("Authorization");
   //console.log("AUTH_HEADER", authHeaders);
   if (!authHeaders) {
     req.isAuth = false;
@@ -40,7 +40,7 @@ const AuthMiddleware = async (req, res, next) => {
     req.isAuth = false;
     return next();
   }
-  console.log("TOKEN_ACCESS_TIME", new Date());
+
   //Set the req user to the fetched user
   req.user = authUser;
   req.isAuth = true;

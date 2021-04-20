@@ -7,8 +7,7 @@ const { pick } = lodash;
 
 export const issueToken = async (user) => {
   let token = await sign(user, SECRET, {
-    //expiresIn: 60 * 60 * 24
-    expiresIn: 20,
+    expiresIn: 60 * 60 * 24,
   });
   console.log("TOKEN_ISSUE_TIME", new Date());
   return `Bearer ${token}`;

@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const { Schema } = mongoose;
+
 const postSchema = mongoose.Schema(
   {
     title: {
@@ -14,10 +16,12 @@ const postSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    author: {
+      ref: "users",
+      type: Schema.Types.ObjectId,
+    },
   },
   { timestamps: true }
 );
 
-const Post = mongoose.model("posts", postSchema);
-
-export default Post;
+export default mongoose.model("posts", postSchema);
