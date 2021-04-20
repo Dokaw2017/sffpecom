@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import { ApolloError } from "apollo-server-express";
+import { NewPostvalidationRules } from "../validators/postValidator.js";
 
 export default {
   Query: {
@@ -25,6 +26,7 @@ export default {
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
       try {
+        await NewPostvalidationRules.validate(newPost, { abortEarly: false });
         const post = new Post({ ...newPost, author: user.id });
         let result = await post.save();
         await result.populate("author").execPopulate();
@@ -35,6 +37,9 @@ export default {
     },
     editPostByID: async (_, { args }, { user }) => {
       try {
+        await NewPostvalidationRules.validate(updatedPost, {
+          abortEarly: false,
+        });
         const { post } = args;
         console.log(post);
         console.log("uu", user.id.toString());

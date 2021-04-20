@@ -2,12 +2,20 @@ import { ApolloError } from "apollo-server-express";
 import { hash, compare } from "bcrypt";
 import User from "../models/User.js";
 import { issueToken, serializeUser } from "../utils/authjwt.js";
+import {
+  UserRegistrationRules,
+  UserAuthenticationRules,
+} from "../validators/userValidator.js";
 
 export default {
   Query: {
     authUserProfile: async (_, {}, { user }) => user,
     authenticateUser: async (_, { username, password }) => {
       try {
+        await UserAuthenticationRules.validate(
+          { username, password },
+          { abortEarly: false }
+        );
         //check if the user is alraedy taken
         let user = await User.findOne({ username });
         //check for the password
@@ -34,6 +42,7 @@ export default {
   Mutation: {
     registerUser: async (_, { newUser }) => {
       try {
+        await UserRegistrationRules.validate(newUser, { abortEarly: false });
         let { username, email } = newUser;
         let user;
         //check if the user is alraedy taken
