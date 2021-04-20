@@ -11,11 +11,11 @@ export default {
   Query: {
     authUserProfile: async (_, {}, { user }) => user,
     authenticateUser: async (_, { username, password }) => {
+      await UserAuthenticationRules.validate(
+        { username, password },
+        { abortEarly: false }
+      );
       try {
-        await UserAuthenticationRules.validate(
-          { username, password },
-          { abortEarly: false }
-        );
         //check if the user is alraedy taken
         let user = await User.findOne({ username });
         //check for the password
@@ -41,8 +41,8 @@ export default {
   },
   Mutation: {
     registerUser: async (_, { newUser }) => {
+      await UserRegistrationRules.validate(newUser, { abortEarly: false });
       try {
-        await UserRegistrationRules.validate(newUser, { abortEarly: false });
         let { username, email } = newUser;
         let user;
         //check if the user is alraedy taken

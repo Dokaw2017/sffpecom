@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginator from "mongoose-paginate-v2";
 
 const { Schema } = mongoose;
 
@@ -23,5 +24,7 @@ const postSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+postSchema.plugin(paginator);
 
 export default mongoose.model("posts", postSchema);

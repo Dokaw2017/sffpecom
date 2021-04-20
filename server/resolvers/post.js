@@ -2,6 +2,18 @@ import Post from "../models/Post.js";
 import { ApolloError } from "apollo-server-express";
 import { NewPostvalidationRules } from "../validators/postValidator.js";
 
+const myCustomLabels = {
+  docs: "posts",
+  limit: "perPage",
+  nextPage: "next",
+  prevPage: "prev",
+  meta: "paginator",
+  page: "currentPage",
+  pagingCounter: "slNo",
+  totalDocs: "totalPosts",
+  totalPages: "totalPages",
+};
+
 export default {
   Query: {
     getAllPosts: async (_, args, { isAuth }) => {
@@ -21,12 +33,27 @@ export default {
         throw new ApolloError(e.message);
       }
     },
+    getPostsByLimitAndPage: async (_, {}) => {
+      const options = {
+        page: page || 1,
+        limit: limit || 10,
+        sort: {
+          createdAt: -1,
+        },
+        populate: "author",
+        customLabels: myCustomLabels,
+      };
+
+      let post = await Post.paginate({}, options);
+      console.log(post);
+      return post;
+    },
   },
 
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
+      await NewPostvalidationRules.validate(newPost, { abortEarly: false });
       try {
-        await NewPostvalidationRules.validate(newPost, { abortEarly: false });
         const post = new Post({ ...newPost, author: user.id });
         let result = await post.save();
         await result.populate("author").execPopulate();
@@ -36,10 +63,10 @@ export default {
       }
     },
     editPostByID: async (_, { args }, { user }) => {
+      await NewPostvalidationRules.validate(updatedPost, {
+        abortEarly: false,
+      });
       try {
-        await NewPostvalidationRules.validate(updatedPost, {
-          abortEarly: false,
-        });
         const { post } = args;
         console.log(post);
         console.log("uu", user.id.toString());
