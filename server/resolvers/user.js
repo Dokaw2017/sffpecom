@@ -13,13 +13,7 @@ export default {
       const users = User.find();
       return users;
     },
-    authUserProfile: async (_, {}, { user }) => {
-      return {
-        username: user.username,
-        id: user.id,
-        email: user.email,
-      };
-    },
+    authUserProfile: async (_, args, { user }) => user,
     loginUser: async (_, { username, password }) => {
       await UserAuthenticationRules.validate(
         { username, password },

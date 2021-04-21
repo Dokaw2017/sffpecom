@@ -7,14 +7,14 @@ export default gql`
     getPostsByLimitAndPage(page: Int, limit: Int): PostPaginator
   }
   extend type Mutation {
-    createNewPost(newPost: PostInput): Post! @isAuth
+    createNewPost(newPost: PostInput): Post!
     editPostByID(updatedPost: PostInput, id: ID!): Post! @isAuth
     deletePostById(id: ID!): PostNotification @isAuth
   }
   input PostInput {
     title: String!
     content: String!
-    featureImage: String
+    featureImage: Upload
   }
   type Post {
     id: ID!

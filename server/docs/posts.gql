@@ -87,3 +87,13 @@ query AUTHENTICATE_USER {
     token
   }
 }
+
+//for fire camp
+
+mutation UP($featureImage: Upload) {
+  createNewPost(newPost: {title: "sdhsdhsdghg", content: "sdsd dfgd fsg dfgsfd", featureImage: $featureImage}) {
+    title
+    content
+    featureImage
+  }
+}

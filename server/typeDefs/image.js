@@ -5,7 +5,7 @@ export default gql`
     info: String!
   }
   extend type Mutation {
-    imageUploader(file: Upload!): File! @isAuth
+    imageUploader(file: Upload!): File!
   }
 
   type File {

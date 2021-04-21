@@ -1,6 +1,25 @@
 import Post from "../models/Post.js";
 import { ApolloError } from "apollo-server-express";
 import { NewPostvalidationRules } from "../validators/postValidator.js";
+import { createWriteStream } from "fs";
+import { URL } from "../config/index.js";
+import shortid from "shortid";
+
+const storeUpload = async ({ stream, filename, mimetype }) => {
+  const id = shortid.generate();
+  let path = `uploads/${id}-${filename}`;
+  await stream.pipe(createWriteStream(path));
+  path = `${URL}/server/${path}`;
+  return { filename, id, mimetype, path };
+};
+
+const processUpload = async (upload) => {
+  const { createReadStream, filename, mimetype } = await upload;
+  console.log(filename, mimetype);
+  const stream = createReadStream();
+  const file = await storeUpload({ stream, filename, mimetype });
+  return file;
+};
 
 const myCustomLabels = {
   docs: "posts",
@@ -52,8 +71,16 @@ export default {
 
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
-      await NewPostvalidationRules.validate(newPost, { abortEarly: false });
       try {
+        const { title, content, featureImage } = newPost;
+        await NewPostvalidationRules.validate(
+          { title, content },
+          { abortEarly: false }
+        );
+        const upload = await processUpload(featureImage);
+        console.log("bbbbb", upload);
+        newPost.featureImage = await upload.path;
+        console.log(user);
         const post = new Post({ ...newPost, author: user.id });
         let result = await post.save();
         await result.populate("author").execPopulate();

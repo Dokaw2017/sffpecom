@@ -43,8 +43,9 @@ const AuthMiddleware = async (req, res, next) => {
 
   //Set the req user to the fetched user
   req.user = authUser;
+
   req.isAuth = true;
-  return next;
+  return next();
 };
 
 export default AuthMiddleware;
