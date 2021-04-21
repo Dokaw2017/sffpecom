@@ -9,8 +9,18 @@ import {
 
 export default {
   Query: {
-    authUserProfile: async (_, {}, { user }) => user,
-    authenticateUser: async (_, { username, password }) => {
+    getUsers: async () => {
+      const users = User.find();
+      return users;
+    },
+    authUserProfile: async (_, {}, { user }) => {
+      return {
+        username: user.username,
+        id: user.id,
+        email: user.email,
+      };
+    },
+    loginUser: async (_, { username, password }) => {
       await UserAuthenticationRules.validate(
         { username, password },
         { abortEarly: false }
