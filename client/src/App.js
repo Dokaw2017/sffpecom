@@ -1,11 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Post from "./Components/Posts";
+import React from "react";
+import { Upload } from "./Upload";
+import PostInput from "./Components/PostInputs";
+import { Files } from "./Files";
 
 function App() {
   return (
-    <div className="App">
-      <Post />
+    <div>
+      <Upload />
     </div>
   );
 }

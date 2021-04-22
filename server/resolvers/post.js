@@ -81,7 +81,10 @@ export default {
         console.log("bbbbb", upload);
         newPost.featureImage = await upload.path;
         console.log(user);
-        const post = new Post({ ...newPost, author: user.id });
+        const post = new Post({
+          ...newPost,
+          author: "607eb8dfccc2c7597c3c5f6c",
+        });
         let result = await post.save();
         await result.populate("author").execPopulate();
         return result;

@@ -3,19 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient } from "@apollo/client";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { client } from "./apollo";
 
-const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
-  cache: new InMemoryCache(),
-});
-
-client
+/* client
   .query({
     query: gql`
       query GET_ALL_POSTS {
@@ -26,12 +18,11 @@ client
     `,
   })
   .then((result) => console.log(result));
+ */
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );

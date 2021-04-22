@@ -3,7 +3,7 @@ import { gql } from "apollo-server-express";
 export default gql`
   extend type Query {
     authUserProfile: User! @isAuth
-    getUsers: [User] @isAuth
+    getUsers: [User]
     loginUser(username: String!, password: String!): AuthResp!
   }
 
