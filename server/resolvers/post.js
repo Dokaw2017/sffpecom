@@ -73,6 +73,7 @@ export default {
     createNewPost: async (_, { newPost }, { user }) => {
       try {
         const { title, content, featureImage } = newPost;
+        console.log("podtt", newPost);
         await NewPostvalidationRules.validate(
           { title, content },
           { abortEarly: false }

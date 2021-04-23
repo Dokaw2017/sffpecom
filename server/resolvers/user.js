@@ -45,6 +45,7 @@ export default {
   },
   Mutation: {
     registerUser: async (_, { newUser }) => {
+      console.log(newUser);
       await UserRegistrationRules.validate(newUser, { abortEarly: false });
       try {
         let { username, email } = newUser;
