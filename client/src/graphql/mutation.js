@@ -17,15 +17,22 @@ export const CreateNewPost = gql`
 `;
 
 export const REGISTER_NEW_USER = gql`
-  mutation REGISTER_NEW_USER {
+  mutation registerUser(
+    $username: String!
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $avatarImage: String
+  ) {
     registerUser(
       newUser: {
-        username: String
-        firstName: String
-        lastName: String
-        email: String
-        password: String
-        avatarImage: String
+        username: $username
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        password: $password
+        avatarImage: $avatarImage
       }
     ) {
       token

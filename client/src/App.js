@@ -1,42 +1,33 @@
-/* import React from "react";
-import { Upload } from "./Upload";
-import PostInput from "./Components/PostInputs";
-import { Files } from "./Files";
-
-function App() {
-  return (
-    <div>
-      <Upload />
-    </div>
-  );
-}
-
-export default App;
- */
-
+import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginScreen from "./Components/LoginScreen";
-import SignUp from "./Components/SignUp";
-import LogOut from "./Components/LogoutScreen";
-//import PrivateRoute from "./Components/PrivateRoute";
+import { Container } from "semantic-ui-react";
+import Home from "./pages/Home";
+import MenuBar from "./Components/MenuBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Upload } from "./Upload";
-import SignUp2 from "./Components/SignUp2";
+import SignUp2 from "./pages/SignUp2";
+import Login from "./pages/Login";
+import Profile from "./Components/Profile";
+import LogoutButton from "./Components/Logout";
 
-function App() {
+const App = () => {
   return (
     <div className="APP">
       <Router>
-        <Switch>
-          <Route exact path="/" component={Upload} />
-          {/* <Route path="/signup" component={SignUp} /> */}
-          <Route path="/signup" component={SignUp2} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/logout" component={LogOut} />
-        </Switch>
+        <Container>
+          <MenuBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/post" component={Upload} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/signup" component={SignUp2} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={LogoutButton} />
+          </Switch>
+        </Container>
       </Router>
     </div>
   );
-}
+};
 
 export default App;

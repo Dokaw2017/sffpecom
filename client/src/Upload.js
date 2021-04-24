@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { filesQuery } from "./Files";
 import { CreateNewPost } from "./graphql/mutation";
 
 export const Upload = () => {

@@ -74,8 +74,8 @@ mutation REGISTER_NEW_USER {
   }
 }
 
-query AUTHENTICATE_USER {
-  authenticateUser(username: "Chala Chube12", password: "test123") {
+query LOGIN_USER {
+  loginUser(username: "Chala Chube12", password: "test123") {
     user {
       id
       username
