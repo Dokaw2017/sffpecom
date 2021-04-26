@@ -9,17 +9,24 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    content: {
+    description: {
       type: String,
       required: true,
     },
     featureImage: {
-      type: String,
-      required: false,
+      type: [String],
     },
     author: {
       ref: "users",
       type: Schema.Types.ObjectId,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

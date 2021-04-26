@@ -7,16 +7,6 @@ const username = yup
   .max(20, "Username should have at most 10 characters.")
   .matches(/^\w+$/, "Should be alphanumeric.");
 
-const firstName = yup
-  .string()
-  .required("FirstName is required")
-  .min(3, "FirstName should have atleast 3 charracters");
-
-const lastName = yup
-  .string()
-  .required("LastName is required")
-  .min(3, "LastName should have atleast 3 charracters");
-
 const email = yup
   .string()
   .required("email is required")
@@ -31,8 +21,6 @@ const password = yup
 //Validation Schema for user Registration
 export const UserRegistrationRules = yup.object().shape({
   username,
-  firstName,
-  lastName,
   password,
   email,
 });

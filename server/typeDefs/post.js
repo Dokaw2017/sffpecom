@@ -2,25 +2,31 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    getAllPosts: [Post!]!
+    getAllPosts: [Post]
     getPostById(id: ID!): Post!
     getPostsByLimitAndPage(page: Int, limit: Int): PostPaginator
+    getUserPosts: [Post] @isAuth
+    getPostByCategory(category: String!): [Post]
   }
   extend type Mutation {
-    createNewPost(newPost: PostInput): Post!
-    editPostByID(updatedPost: PostInput, id: ID!): Post! @isAuth
+    createNewPost(newPost: NewPostInput): Post!
+    editPostByID(updatedPost: UpdatePostInput, id: ID!): Post! @isAuth
     deletePostById(id: ID!): PostNotification @isAuth
   }
-  input PostInput {
+  input NewPostInput {
     title: String!
-    content: String!
-    featureImage: Upload
+    description: String!
+    price: String!
+    category: String!
+    featureImage: [Upload]!
   }
   type Post {
     id: ID!
     title: String!
-    content: String!
-    featureImage: String
+    description: String!
+    category: String!
+    price: String!
+    featureImage: [String]
     createdAt: String
     updatedAt: String
     author: User
@@ -43,6 +49,18 @@ export default gql`
     hasPrevPage: Boolean!
     hasNextPage: Boolean!
   }
+
+  input UpdatePostInput {
+    id: ID!
+    title: String
+    description: String
+    price: String
+    category: String
+    featuredImage: [String]
+    createdAt: String
+    updatedAt: String
+  }
+
   type PostNotification {
     id: ID!
     message: String!
