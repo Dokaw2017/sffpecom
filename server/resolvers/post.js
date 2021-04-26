@@ -37,8 +37,17 @@ export default {
   Query: {
     getAllPosts: async (_, args, { isAuth }) => {
       console.log("ffff", isAuth);
-      let posts = Post.find();
+      let posts = Post.find().populate("author");
       return posts;
+    },
+    getUserPosts: async (_, args, { user }) => {
+      try {
+        let posts = await Post.find({ author: user._id });
+        console.log(posts);
+        return posts;
+      } catch (e) {
+        throw new ApolloError(e.message);
+      }
     },
     getPostById: async (_, { id }) => {
       try {
@@ -48,6 +57,16 @@ export default {
         }
         await (await post.populate("author")).execPopulate();
         return post;
+      } catch (e) {
+        throw new ApolloError(e.message);
+      }
+    },
+    getPostByCategory: async (_, { category }) => {
+      try {
+        console.log("CCCC", category);
+        let posts = await Post.find({ category: category }).populate("author");
+        console.log(posts);
+        return posts;
       } catch (e) {
         throw new ApolloError(e.message);
       }
@@ -72,10 +91,10 @@ export default {
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
       try {
-        const { title, content, featureImage } = newPost;
+        const { title, description, featureImage, price } = newPost;
         console.log("podtt", newPost);
         await NewPostvalidationRules.validate(
-          { title, content },
+          { title, description, price },
           { abortEarly: false }
         );
         const upload = await processUpload(featureImage);
@@ -84,7 +103,7 @@ export default {
         console.log(user);
         const post = new Post({
           ...newPost,
-          author: "607eb8dfccc2c7597c3c5f6c",
+          author: user.id,
         });
         let result = await post.save();
         await result.populate("author").execPopulate();
