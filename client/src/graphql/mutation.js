@@ -3,14 +3,24 @@ import { gql } from "@apollo/client";
 export const CreateNewPost = gql`
   mutation CreateNewPost(
     $title: String!
-    $content: String!
-    $featureImage: Upload
+    $description: String!
+    $price: String!
+    $category: String!
+    $featureImage: [Upload]!
   ) {
     createNewPost(
-      newPost: { title: $title, content: $content, featureImage: $featureImage }
+      newPost: {
+        title: $title
+        description: $description
+        price: $price
+        category: $category
+        featureImage: $featureImage
+      }
     ) {
       title
-      content
+      description
+      price
+      category
       featureImage
     }
   }
@@ -19,30 +29,17 @@ export const CreateNewPost = gql`
 export const REGISTER_NEW_USER = gql`
   mutation registerUser(
     $username: String!
-    $firstName: String!
-    $lastName: String!
     $email: String!
     $password: String!
-    $avatarImage: String
   ) {
     registerUser(
-      newUser: {
-        username: $username
-        firstName: $firstName
-        lastName: $lastName
-        email: $email
-        password: $password
-        avatarImage: $avatarImage
-      }
+      newUser: { username: $username, email: $email, password: $password }
     ) {
       token
       user {
         id
         username
         email
-        firstName
-        lastName
-        avatarImage
       }
     }
   }

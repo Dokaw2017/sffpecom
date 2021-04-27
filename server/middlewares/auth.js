@@ -3,17 +3,18 @@ import { SECRET } from "../config/index.js";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-const { verify } = jwt;
+//const { verify } = jwt;
 
 const AuthMiddleware = async (req, res, next) => {
-  const authHeaders = req.get("Authorization");
-  //console.log("AUTH_HEADER", authHeaders);
+  const authHeaders = await req.get("Authorization");
+
   if (!authHeaders) {
     req.isAuth = false;
     return next();
   }
   //Extract token
   let token = authHeaders.split(" ")[1];
+
   if (!token || token === "") {
     req.isAuth = false;
     return next();
@@ -22,7 +23,7 @@ const AuthMiddleware = async (req, res, next) => {
   //decode the token using verify
   let decodedToken;
   try {
-    decodedToken = verify(token, SECRET);
+    decodedToken = jwt.verify(token, SECRET);
   } catch (err) {
     req.isAuth = false;
     return next();

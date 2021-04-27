@@ -5,12 +5,14 @@ import { createWriteStream } from "fs";
 import { URL } from "../config/index.js";
 import shortid from "shortid";
 
-const storeUpload = async ({ stream, filename, mimetype }) => {
+const storeUpload = async (upload) => {
+  const { createReadStream, filename, mimetype } = await upload;
+  const stream = createReadStream();
   const id = shortid.generate();
   let path = `uploads/${id}-${filename}`;
   await stream.pipe(createWriteStream(path));
   path = `${URL}/server/${path}`;
-  return { filename, id, mimetype, path };
+  return path;
 };
 
 const processUpload = async (upload) => {
@@ -91,21 +93,23 @@ export default {
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
       try {
-        const { title, description, featureImage, price } = newPost;
+        console.log(newPost);
+        const { title, description, featureImage, price, category } = newPost;
         console.log("podtt", newPost);
         await NewPostvalidationRules.validate(
           { title, description, price },
           { abortEarly: false }
         );
-        const upload = await processUpload(featureImage);
+        const upload = await Promise.all(featureImage.map(await storeUpload));
         console.log("bbbbb", upload);
-        newPost.featureImage = await upload.path;
+        newPost.featureImage = await upload;
         console.log(user);
         const post = new Post({
           ...newPost,
           author: user.id,
         });
         let result = await post.save();
+        console.log("rrrrrr", result);
         await result.populate("author").execPopulate();
         return result;
       } catch (e) {

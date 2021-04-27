@@ -1,25 +1,20 @@
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import { useMutation } from "@apollo/react-hooks";
 import { CreateNewPost } from "./graphql/mutation";
+import { Form, Button } from "semantic-ui-react";
 
 export const Upload = () => {
   const [title, setTitle] = useState("le mee bebe bebe bebe ");
-  const [content, setContent] = useState(" hehe eee eege egeege");
+  const [description, setDescription] = useState(" hehe eee eege egeege");
+  const [price, setPrice] = useState("");
   const [image, setImage] = useState();
+  const [category, setCategory] = useState("clothes");
+  const [file, setFile] = useState();
 
   const [createNewPost, { error, loading, data }] = useMutation(CreateNewPost);
 
-  const onDrop = useCallback(([file]) => {
-    const featureImage = file;
-    console.log(featureImage);
-    setImage(file);
-  });
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
   return (
-    <div className="outer">
+    <Form>
       <div className="regularInputs">
         <input
           type="text"
@@ -30,36 +25,61 @@ export const Upload = () => {
         />
         <input
           type="text"
-          placeholder="content"
+          placeholder="description"
           onChange={(event) => {
-            setContent(event.target.value);
+            setDescription(event.target.value);
           }}
         />
+        <input
+          type="text"
+          placeholder="price"
+          onChange={(event) => {
+            setPrice(event.target.value);
+          }}
+        />
+        <input
+          type="file"
+          name="picture"
+          onChange={async (event) => {
+            await setFile(event.target.files[0]);
+            console.log(event.target.files[0]);
+            console.log(file);
+          }}
+        />
+        <select
+          onChange={(event) => {
+            setCategory(event.target.value);
+          }}
+        >
+          <option value="clothes">Clothes</option>
+          <option value="electronics">Electronics</option>
+          <option value="foods">Foods</option>
+          <option value="furniture">Furniture</option>
+          <option value="cars">Vehicles</option>
+        </select>
       </div>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
+
       <div className="button">
         <button
           onClick={() => {
-            const featureImage = image;
+            const featureImage = [];
+            featureImage.push(file);
+
             createNewPost({
               variables: {
                 title,
-                content,
+                description,
+                price,
+                category,
                 featureImage,
               },
             });
+            //addImage();
           }}
         >
           Create Post
         </button>
       </div>
-    </div>
+    </Form>
   );
 };
