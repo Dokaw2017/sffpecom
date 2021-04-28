@@ -12,17 +12,13 @@ export default gql`
   }
 
   input UserInput {
-    firstName: String!
-    lastName: String!
     username: String!
     password: String!
     email: String!
-    avatarImage: String
+    avatarImage: Upload
   }
 
   type User {
-    firstName: String!
-    lastName: String!
     username: String!
     email: String!
     avatarImage: String
@@ -31,6 +27,6 @@ export default gql`
 
   type AuthResp {
     user: User!
-    token: String!
+    token: String
   }
 `;
