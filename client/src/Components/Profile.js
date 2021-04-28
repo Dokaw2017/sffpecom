@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import { GET_CURRENT_USER } from "../graphql/query";
+import { Upload } from "../Upload";
 
 const Profile = () => {
   const { data, error } = useQuery(GET_CURRENT_USER);
@@ -11,9 +12,12 @@ const Profile = () => {
   return (
     <div>
       <h3>Profile</h3>
-      <p>
-        {`${data?.authUserProfile.username} ${data?.authUserProfile.email}`}
-      </p>
+      {
+        <p>
+          {`${data?.authUserProfile.username} ${data?.authUserProfile.email}`}
+        </p>
+      }
+      <Upload />
     </div>
   );
 };

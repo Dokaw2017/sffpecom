@@ -8,24 +8,29 @@ import { Upload } from "./Upload";
 import SignUp2 from "./pages/SignUp2";
 import Login from "./pages/Login";
 import Profile from "./Components/Profile";
-import LogoutButton from "./Components/Logout";
+import { AuthProvider } from "./context/auth";
+import Products from "./Components/Products/Products";
+import Navbar from "./Components/Navbar/Navbar";
 
 const App = () => {
   return (
     <div className="APP">
-      <Router>
-        <Container>
-          <MenuBar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/post" component={Upload} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/signup" component={SignUp2} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={LogoutButton} />
-          </Switch>
-        </Container>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Container>
+            {/* <MenuBar /> */}
+            <Navbar />
+            <Switch>
+              {/* <Route exact path="/" component={Home} /> */}
+              <Route exact path="/" component={Products} />
+              <Route path="/post" component={Upload} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/signup" component={SignUp2} />
+              <Route path="/login" component={Login} />
+            </Switch>
+          </Container>
+        </Router>
+      </AuthProvider>
     </div>
   );
 };

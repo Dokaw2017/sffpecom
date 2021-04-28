@@ -3,7 +3,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const PostCard = ({
-  post: { id, title, content, featureImage, createdAt, updatedAt },
+  res: { id, title, description, featureImage, createdAt, updatedAt },
 }) => {
   const likePost = () => {
     console.log("I have liked it");
@@ -12,19 +12,16 @@ const PostCard = ({
   const commentOnPost = () => {
     console.log("I have a few comments");
   };
+
   return (
     <Card fluid>
       <Card.Content>
-        <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
-        />
+        <Image src={featureImage} />
         <Card.Header>{title}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
           {moment(createdAt).fromNow()}
         </Card.Meta>
-        <Card.Description>{content}</Card.Description>
+        <Card.Description>{description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button as="div" labelPosition="right" onClick={likePost}>
