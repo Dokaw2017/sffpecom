@@ -14,16 +14,17 @@ export const LOGIN_USER = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-  {
+  query {
     authUserProfile {
       username
       email
+      id
     }
   }
 `;
 
 export const GET_All_POSTS = gql`
-  {
+  query {
     getAllPosts {
       id
       title
@@ -37,7 +38,7 @@ export const GET_All_POSTS = gql`
 `;
 
 export const GET_USER_POSTS = gql`
-  {
+  query {
     getUserPosts {
       id
       title

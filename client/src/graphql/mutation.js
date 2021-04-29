@@ -7,6 +7,7 @@ export const CreateNewPost = gql`
     $price: String!
     $category: String!
     $featureImage: [Upload]!
+    $id: ID!
   ) {
     createNewPost(
       newPost: {
@@ -15,6 +16,7 @@ export const CreateNewPost = gql`
         price: $price
         category: $category
         featureImage: $featureImage
+        author: $id
       }
     ) {
       title
@@ -41,6 +43,15 @@ export const REGISTER_NEW_USER = gql`
         username
         email
       }
+    }
+  }
+`;
+
+export const DELETE_POST_BY_ID = gql`
+  mutation deletePostById($id: ID!, $owner: ID!) {
+    deletePostById(id: $id, owner: $owner) {
+      message
+      success
     }
   }
 `;

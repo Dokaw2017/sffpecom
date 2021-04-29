@@ -10,12 +10,14 @@ export const Upload = () => {
   const [image, setImage] = useState();
   const [category, setCategory] = useState("clothes");
   const [file, setFile] = useState();
+  const id = localStorage.getItem("id");
 
   const [createNewPost, { error, loading, data }] = useMutation(CreateNewPost);
 
   return (
-    <Form>
-      <div className="regularInputs">
+    <div className="regularInputs">
+      <Form>
+        <h1>Create Post</h1>
         <input
           type="text"
           placeholder="title"
@@ -42,8 +44,6 @@ export const Upload = () => {
           name="picture"
           onChange={async (event) => {
             await setFile(event.target.files[0]);
-            console.log(event.target.files[0]);
-            console.log(file);
           }}
         />
         <select
@@ -57,29 +57,29 @@ export const Upload = () => {
           <option value="furniture">Furniture</option>
           <option value="cars">Vehicles</option>
         </select>
-      </div>
 
-      <div className="button">
-        <button
-          onClick={() => {
-            const featureImage = [];
-            featureImage.push(file);
+        <div className="button">
+          <button
+            onClick={() => {
+              const featureImage = [];
+              featureImage.push(file);
 
-            createNewPost({
-              variables: {
-                title,
-                description,
-                price,
-                category,
-                featureImage,
-              },
-            });
-            //addImage();
-          }}
-        >
-          Create Post
-        </button>
-      </div>
-    </Form>
+              createNewPost({
+                variables: {
+                  title,
+                  description,
+                  price,
+                  category,
+                  featureImage,
+                  id,
+                },
+              });
+            }}
+          >
+            Create Post
+          </button>
+        </div>
+      </Form>
+    </div>
   );
 };

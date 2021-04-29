@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { GET_CURRENT_USER } from "../../graphql/query";
 import logo from "../../assets/logo.jpg";
 import useStyles from "./styles";
@@ -19,12 +19,19 @@ import { useQuery } from "@apollo/react-hooks";
 const PrimarySearchAppBar = ({ totalItems }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const { data, client } = useQuery(GET_CURRENT_USER);
+  const history = useHistory();
   const classes = useStyles();
   const location = useLocation();
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+  const handlelogout = (e) => {
+    e.preventDefault();
+    window.localStorage.clear();
+    client.resetStore();
+    history.push("/");
+  };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -54,7 +61,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
     </Menu>
   );
 
-  const store = data ? (
+  const store = localStorage.getItem("id") ? (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
@@ -76,10 +83,12 @@ const PrimarySearchAppBar = ({ totalItems }) => {
           <div className={classes.grow} />
           {location.pathname === "/" && (
             <div className={classes.button}>
-              <Button color="inherit">Register</Button>
-              <Button color="inherit">Login</Button>
-              <Button color="inherit">Profile</Button>
-              <Button color="inherit">Logout</Button>
+              <Button color="inherit" to="/post" component={Link}>
+                Profile
+              </Button>
+              <Button color="inherit" onClick={handlelogout}>
+                Logout
+              </Button>
               <IconButton
                 component={Link}
                 to="/cart"
@@ -118,8 +127,12 @@ const PrimarySearchAppBar = ({ totalItems }) => {
           <div className={classes.grow} />
           {location.pathname === "/" && (
             <div className={classes.button}>
-              <Button color="inherit">Register</Button>
-              <Button color="inherit">Login</Button>
+              <Button color="inherit" to="/signup" component={Link}>
+                Register
+              </Button>
+              <Button color="inherit" to="/login" component={Link}>
+                Login
+              </Button>
               <IconButton
                 component={Link}
                 to="/cart"

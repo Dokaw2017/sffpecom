@@ -24,6 +24,7 @@ const Login = (props) => {
   });
   if (data) {
     window.localStorage.setItem("token", data.loginUser.token);
+    window.localStorage.setItem("id", data.loginUser.user.id);
     props.history.push("/");
   }
   function loginUserCallback() {
