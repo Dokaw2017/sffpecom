@@ -13,7 +13,14 @@ export default {
       const users = User.find();
       return users;
     },
-    authUserProfile: async (_, args, { user }) => user,
+    authUserProfile: async (_, args, { user }) => {
+      return {
+        name: user.username,
+        _id: user._id,
+        email: user.email,
+      };
+    },
+
     loginUser: async (_, { username, password }) => {
       await UserAuthenticationRules.validate(
         { username, password },
@@ -27,6 +34,7 @@ export default {
         if (!isMach) {
           throw new Error("Invalid Password");
         }
+        console.log(user);
 
         //Serialize úser
         user = user.toObject();

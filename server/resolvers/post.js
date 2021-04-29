@@ -17,7 +17,7 @@ const storeUpload = async (upload) => {
 
 const processUpload = async (upload) => {
   const { createReadStream, filename, mimetype } = await upload;
-  console.log(filename, mimetype);
+
   const stream = createReadStream();
   const file = await storeUpload({ stream, filename, mimetype });
   return file;
@@ -38,14 +38,12 @@ const myCustomLabels = {
 export default {
   Query: {
     getAllPosts: async (_, args, { isAuth }) => {
-      console.log("ffff", isAuth);
       let posts = Post.find().populate("author");
       return posts;
     },
     getUserPosts: async (_, args, { user }) => {
       try {
         let posts = await Post.find({ author: user._id });
-        console.log(posts);
         return posts;
       } catch (e) {
         throw new ApolloError(e.message);
@@ -65,15 +63,14 @@ export default {
     },
     getPostByCategory: async (_, { category }) => {
       try {
-        console.log("CCCC", category);
         let posts = await Post.find({ category: category }).populate("author");
-        console.log(posts);
+
         return posts;
       } catch (e) {
         throw new ApolloError(e.message);
       }
     },
-    getPostsByLimitAndPage: async (_, {}) => {
+    getPostsByLimitAndPage: async (_, { page, limit }) => {
       const options = {
         page: page || 1,
         limit: limit || 10,
@@ -85,7 +82,7 @@ export default {
       };
 
       let post = await Post.paginate({}, options);
-      console.log(post);
+
       return post;
     },
   },
@@ -93,23 +90,27 @@ export default {
   Mutation: {
     createNewPost: async (_, { newPost }, { user }) => {
       try {
-        console.log(newPost);
-        const { title, description, featureImage, price, category } = newPost;
-        console.log("podtt", newPost);
+        const {
+          title,
+          description,
+          featureImage,
+          price,
+          category,
+          author,
+        } = newPost;
+
         await NewPostvalidationRules.validate(
           { title, description, price },
           { abortEarly: false }
         );
         const upload = await Promise.all(featureImage.map(await storeUpload));
-        console.log("bbbbb", upload);
+
         newPost.featureImage = await upload;
-        console.log(user);
-        const post = new Post({
-          ...newPost,
-          author: user.id,
-        });
+        console.log("zakkkk", user.id);
+        const post = new Post(newPost);
+
         let result = await post.save();
-        console.log("rrrrrr", result);
+
         await result.populate("author").execPopulate();
         return result;
       } catch (e) {
@@ -122,35 +123,39 @@ export default {
       });
       try {
         const { post } = args;
-        console.log(post);
+
         console.log("uu", user.id.toString());
         const postO = await Post.findOneAndUpdate(
-          { _id: post.id, author: user.id.toString() },
+          { _id: post.id, author: user._id.toString() },
           { ...post },
           {
             new: true,
           }
         );
-        console.log("poat", postO);
-        if (!postO) {
+        console.log("poat", post);
+        if (!post) {
           throw new Error("unable to edit post");
         }
-        return postO;
+        return post;
       } catch (e) {
         throw new ApolloError(e.message);
       }
     },
-    deletePostById: async (_, { id }) => {
+    deletePostById: async (_, { id, owner }, { user }) => {
       try {
+        console.log(owner);
         const deletedPost = await Post.findOneAndDelete({
           _id: id,
-          author: user.id.toString(),
+          // author: user._id.toString(),
+          //author: owner,
         });
+
         if (!deletedPost) {
           throw new Error("unable delete post");
         }
         return {
-          id: mm._id,
+          owner,
+          message: "The post has been deleted",
           success: true,
         };
       } catch (e) {

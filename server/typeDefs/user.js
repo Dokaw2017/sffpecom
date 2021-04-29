@@ -22,7 +22,7 @@ export default gql`
     username: String!
     email: String!
     avatarImage: String
-    id: ID!
+    id: ID
   }
 
   type AuthResp {

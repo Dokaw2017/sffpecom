@@ -11,7 +11,7 @@ export default gql`
   extend type Mutation {
     createNewPost(newPost: NewPostInput): Post!
     editPostByID(updatedPost: UpdatePostInput, id: ID!): Post! @isAuth
-    deletePostById(id: ID!): PostNotification @isAuth
+    deletePostById(id: ID!, owner: ID!): PostNotification @isAuth
   }
   input NewPostInput {
     title: String!
@@ -19,6 +19,7 @@ export default gql`
     price: String!
     category: String!
     featureImage: [Upload]!
+    author: ID!
   }
   type Post {
     id: ID!

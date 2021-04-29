@@ -4,7 +4,7 @@ const username = yup
   .string()
   .required("username is required")
   .min(5, "username should have atleast five charracters")
-  .max(20, "Username should have at most 10 characters.")
+  .max(10, "Username should have at most 10 characters.")
   .matches(/^\w+$/, "Should be alphanumeric.");
 
 const email = yup
