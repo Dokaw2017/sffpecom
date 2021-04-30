@@ -11,6 +11,9 @@
 }
 .regularInputs {
   padding-top: 100px;
-  width: 600px;
+  width: 300px;
   margin: auto;
+}
+.profile {
+  padding-top: 100px;
 }

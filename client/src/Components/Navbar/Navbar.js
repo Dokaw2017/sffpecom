@@ -83,7 +83,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
           <div className={classes.grow} />
           {location.pathname === "/" && (
             <div className={classes.button}>
-              <Button color="inherit" to="/post" component={Link}>
+              <Button color="inherit" to="/profile" component={Link}>
                 Profile
               </Button>
               <Button color="inherit" onClick={handlelogout}>

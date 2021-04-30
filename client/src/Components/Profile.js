@@ -1,16 +1,18 @@
 import { useQuery } from "@apollo/react-hooks";
 import { GET_CURRENT_USER } from "../graphql/query";
+import { GET_USER_POSTS } from "../graphql/query";
 import { Upload } from "../Upload";
 
 const Profile = () => {
   const { data, error } = useQuery(GET_CURRENT_USER);
+  const { data: userposts } = useQuery(GET_USER_POSTS);
   const token = window.localStorage.getItem("token");
-  console.log(token);
+  console.log("userpppppp", userposts);
   console.log("uuu", data);
   console.log("tttt", error);
 
   return (
-    <div>
+    <div className="profile">
       <h3>Profile</h3>
       {
         <p>

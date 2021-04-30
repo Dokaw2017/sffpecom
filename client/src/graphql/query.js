@@ -23,6 +23,21 @@ export const GET_CURRENT_USER = gql`
   }
 `;
 
+export const POST_BY_ID = gql`
+  query getPostById($id: ID!) {
+    getPostById(id: $id) {
+      id
+      title
+      description
+      category
+      price
+      createdAt
+      featureImage
+      updatedAt
+    }
+  }
+`;
+
 export const GET_All_POSTS = gql`
   query {
     getAllPosts {

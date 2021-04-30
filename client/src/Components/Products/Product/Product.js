@@ -7,6 +7,7 @@ import {
   Typography,
   IconButton,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { AddShoppingCart } from "@material-ui/icons";
@@ -29,6 +30,8 @@ const Product = ({ product, onAddToCart }) => {
         className={classes.media}
         image={product.featureImage}
         title={product.title}
+        component={Link}
+        to={`/posts/${product.id}`}
       />
       <CardContent>
         <div className={classes.cardContent}>
