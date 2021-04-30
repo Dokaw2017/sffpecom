@@ -14,11 +14,8 @@ export default {
       return users;
     },
     authUserProfile: async (_, args, { user }) => {
-      return {
-        name: user.username,
-        _id: user._id,
-        email: user.email,
-      };
+      console.log("dd", user);
+      return user;
     },
 
     loginUser: async (_, { username, password }) => {

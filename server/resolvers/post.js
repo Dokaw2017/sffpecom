@@ -1,6 +1,7 @@
 import Post from "../models/Post.js";
 import { ApolloError } from "apollo-server-express";
 import { NewPostvalidationRules } from "../validators/postValidator.js";
+import { UserInputError } from "apollo-server-express";
 import { createWriteStream } from "fs";
 import { URL } from "../config/index.js";
 import shortid from "shortid";
@@ -115,6 +116,44 @@ export default {
         return result;
       } catch (e) {
         throw new ApolloError(e.message);
+      }
+    },
+    createComment: async (_, { postId, body }, { user }) => {
+      if (body.trim() === "") {
+        throw new UserInputError("Empty Comment", {
+          errors: {
+            body: "Comment body must not be empty",
+          },
+        });
+      }
+      const post = await Post.findById(postId);
+
+      if (post) {
+        post.comments.unshift({
+          body,
+          username,
+          createdAt: new Date().toISOString(),
+        });
+        await post.save();
+        return post;
+      } else throw new UserInputError("post not found");
+    },
+    deleteComment: async (_, { postId, commentId }, { user }) => {
+      const post = await Post.findById(postId);
+      if (post) {
+        const commentIndex = post.comments.findIndex(
+          (comm) => comm.id === commentId
+        );
+
+        if (post.comments[commentIndex].username === user.username) {
+          post.comments.splice(commentIndex, 1);
+          await post.save();
+          return post;
+        } else {
+          throw new ApolloError();
+        }
+      } else {
+        throw new UserInputError("Post not found");
       }
     },
     editPostByID: async (_, { args }, { user }) => {

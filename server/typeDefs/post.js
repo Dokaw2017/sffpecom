@@ -12,6 +12,9 @@ export default gql`
     createNewPost(newPost: NewPostInput): Post!
     editPostByID(updatedPost: UpdatePostInput, id: ID!): Post! @isAuth
     deletePostById(id: ID!, owner: ID!): PostNotification @isAuth
+    createComment(postId: String!, body: String!): Post!
+    deleteComment(postId: ID!, commentId: ID!): Post!
+    likePost(postId: ID!): Post!
   }
   input NewPostInput {
     title: String!
@@ -28,9 +31,23 @@ export default gql`
     category: String!
     price: String!
     featureImage: [String]
+    comment: [Comment]!
+    likes: [Like]!
     createdAt: String
     updatedAt: String
     author: User
+  }
+
+  type Comment {
+    id: ID!
+    createdAt: String!
+    username: String!
+    body: String!
+  }
+  type Like {
+    id: ID!
+    createdAt: String!
+    username: String!
   }
 
   type PostPaginator {
