@@ -8,21 +8,14 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { AddShoppingCart } from "@material-ui/icons";
-import { useMutation } from "@apollo/react-hooks";
-import { DELETE_POST_BY_ID } from "../../../graphql/mutation";
-
 import useStyles from "./styles";
 
 const Product = ({ product, onAddToCart }) => {
-  const [deletePost, { error, loading, data }] = useMutation(DELETE_POST_BY_ID);
-
+  console.log(product);
   const classes = useStyles();
 
   const handleAddToCart = () => onAddToCart(product.id, 1);
-  const handleEdit = () => {};
 
   return (
     <Card className={classes.root}>
@@ -42,27 +35,8 @@ const Product = ({ product, onAddToCart }) => {
             ${product.price}
           </Typography>
         </div>
-        <Typography
-          dangerouslySetInnerHTML={{ __html: product.description }}
-          variant="body2"
-          color="textSecondary"
-          component="p"
-        />
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton
-          aria-label="Edit"
-          onClick={() =>
-            deletePost({
-              variables: { id: product.id, owner: localStorage.getItem("id") },
-            })
-          }
-        >
-          <DeleteIcon />
-        </IconButton>
-        <IconButton aria-label="Edit" onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
         <IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
           <AddShoppingCart />
         </IconButton>

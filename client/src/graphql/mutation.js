@@ -55,3 +55,25 @@ export const DELETE_POST_BY_ID = gql`
     }
   }
 `;
+
+export const EDIT_POST_BY_ID = gql`
+  mutation updatePost(
+    $id: ID!
+    $title: String
+    $description: String
+    $category: String
+    $price: String
+  ) {
+    updatePost(
+      post: {
+        id: $id
+        title: $title
+        description: $description
+        category: $category
+        price: $price
+      }
+    ) {
+      id
+    }
+  }
+`;

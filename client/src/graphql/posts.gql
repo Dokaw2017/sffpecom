@@ -38,8 +38,8 @@ mutation EDIT_POST_BY_ID($id: ID!, $updatedPost: PostInput!) {
   editPostByID(updatedPost: $updatedPost, id: $id) {
     id
     title
-    content
-    featureImage
+    description
+    
   }
 }
 

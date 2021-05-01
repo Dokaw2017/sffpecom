@@ -9,10 +9,7 @@ import {
   Typography,
   IconButton,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { AddShoppingCart } from "@material-ui/icons";
-
 import useStyles from "./styles";
 
 const SinglePost = (props) => {
@@ -20,16 +17,15 @@ const SinglePost = (props) => {
   console.log(id);
   const classes = useStyles();
   //   const handleAddToCart = () => onAddToCart(product.id, 1);
-  const { data } = useQuery(POST_BY_ID, {
+
+  const { data: singleData, error: sehitet } = useQuery(POST_BY_ID, {
     variables: {
       id,
     },
   });
 
-  console.log(data);
-
   let postMarkUp;
-  if (!data?.getPostById) {
+  if (!singleData?.getPostById) {
     postMarkUp = "I will be here soon";
   } else {
     const {
@@ -39,7 +35,7 @@ const SinglePost = (props) => {
       category,
       price,
       featureImage,
-    } = data?.getPostById;
+    } = singleData?.getPostById;
 
     postMarkUp = (
       <Card className={classes.root}>

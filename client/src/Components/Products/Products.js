@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
+import UserProduct from "./Product/UserProduct";
 import useStyles from "./styles";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_All_POSTS } from "../../graphql/query";
@@ -25,7 +26,7 @@ const Products = ({ products, onAddToCart }) => {
         {userposts?.getUserPosts &&
           userposts?.getUserPosts.map((userpo) => (
             <Grid key={userpo.id} item xs={12} sm={6} md={4} lg={3}>
-              <Product product={userpo} onAddToCart={onAddToCart} />
+              <UserProduct userproduct={userpo} />
             </Grid>
           ))}
       </Grid>
