@@ -16,19 +16,6 @@ const postSchema = mongoose.Schema(
     featureImage: {
       type: [String],
     },
-    comments: [
-      {
-        body: String,
-        username: String,
-        createdAt: String,
-      },
-    ],
-    likes: [
-      {
-        username: String,
-        createdAt: String,
-      },
-    ],
     author: {
       ref: "users",
       type: Schema.Types.ObjectId,

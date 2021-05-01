@@ -118,52 +118,9 @@ export default {
         throw new ApolloError(e.message);
       }
     },
-    createComment: async (_, { postId, body }, { user }) => {
-      if (body.trim() === "") {
-        throw new UserInputError("Empty Comment", {
-          errors: {
-            body: "Comment body must not be empty",
-          },
-        });
-      }
-      const post = await Post.findById(postId);
-
-      if (post) {
-        post.comments.unshift({
-          body,
-          username,
-          createdAt: new Date().toISOString(),
-        });
-        await post.save();
-        return post;
-      } else throw new UserInputError("post not found");
-    },
-    deleteComment: async (_, { postId, commentId }, { user }) => {
-      const post = await Post.findById(postId);
-      if (post) {
-        const commentIndex = post.comments.findIndex(
-          (comm) => comm.id === commentId
-        );
-
-        if (post.comments[commentIndex].username === user.username) {
-          post.comments.splice(commentIndex, 1);
-          await post.save();
-          return post;
-        } else {
-          throw new ApolloError();
-        }
-      } else {
-        throw new UserInputError("Post not found");
-      }
-    },
-    editPostByID: async (_, { args }, { user }) => {
-      await NewPostvalidationRules.validate(updatedPost, {
-        abortEarly: false,
-      });
+    updatePost: async (_, args, { user }) => {
       try {
         const { post } = args;
-
-        console.log("uu", user.id.toString());
         const postO = await Post.findOneAndUpdate(
           { _id: post.id, author: user._id.toString() },
           { ...post },
@@ -171,11 +128,10 @@ export default {
             new: true,
           }
         );
-        console.log("poat", post);
-        if (!post) {
+        if (!postO) {
           throw new Error("unable to edit post");
         }
-        return post;
+        return postO;
       } catch (e) {
         throw new ApolloError(e.message);
       }

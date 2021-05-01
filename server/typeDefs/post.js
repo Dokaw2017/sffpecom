@@ -10,11 +10,9 @@ export default gql`
   }
   extend type Mutation {
     createNewPost(newPost: NewPostInput): Post!
-    editPostByID(updatedPost: UpdatePostInput, id: ID!): Post! @isAuth
+    # editPostByID(updatedPost: UpdatePostInput, id: ID!): Post! @isAuth
     deletePostById(id: ID!, owner: ID!): PostNotification @isAuth
-    createComment(postId: String!, body: String!): Post!
-    deleteComment(postId: ID!, commentId: ID!): Post!
-    likePost(postId: ID!): Post!
+    updatePost(post: postUpdate): Post! @isAuth
   }
   input NewPostInput {
     title: String!
@@ -24,6 +22,16 @@ export default gql`
     featureImage: [Upload]!
     author: ID!
   }
+  input postUpdate {
+    id: ID!
+    title: String
+    description: String
+    price: String
+    category: String
+    featuredImage: [String]
+    createdAt: String
+    updatedAt: String
+  }
   type Post {
     id: ID!
     title: String!
@@ -31,8 +39,6 @@ export default gql`
     category: String!
     price: String!
     featureImage: [String]
-    comment: [Comment]!
-    likes: [Like]!
     createdAt: String
     updatedAt: String
     author: User
@@ -66,17 +72,6 @@ export default gql`
     currentPage: Int!
     hasPrevPage: Boolean!
     hasNextPage: Boolean!
-  }
-
-  input UpdatePostInput {
-    id: ID!
-    title: String
-    description: String
-    price: String
-    category: String
-    featuredImage: [String]
-    createdAt: String
-    updatedAt: String
   }
 
   type PostNotification {
