@@ -9,16 +9,75 @@ import { schemaDirectives } from "./directives/index.js";
 import localhost from "./security/localhost.js";
 import production from "./security/production.js";
 import helmet from "helmet";
+import cors from "cors";
+import Stripe from "stripe";
+//import { uuid } from "uuid";
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_TEST);
 const app = express();
 
 (async () => {
+  app.post("/payment", cors(), async (req, res) => {
+    const { product, token } = req.body;
+    console.log("product", product);
+    console.log("price", product.price);
+    const idempotencyKey = uuid();
+
+    return strip.customers
+      .create({
+        email: token.email,
+        source: token.id,
+      })
+      .then((customer) => {
+        stripe.charges
+          .create(
+            {
+              amount: product.price * 100,
+              currency: "usd",
+              customer: customer.id,
+              receipt_email: token.email,
+              description: product.name,
+              shipping: {
+                name: token.card.name,
+                address: {
+                  country: token.card.address_country,
+                },
+              },
+            },
+            { idempotencyKey }
+          )
+          .then((result) => res.status(200).json(result))
+          .catch((error) => console.log(error));
+      });
+
+    /* try {
+      const payment = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: "Spatula company",
+        payment_method: id,
+        confirm: true,
+      });
+      console.log("Payment", payment);
+      res.json({
+        message: "Payment successful",
+        success: true,
+      });
+    } catch (error) {
+      console.log("Error", error);
+      res.json({
+        message: "Payment failed",
+        success: false,
+      });
+    } */
+  });
+
   try {
     const connect = await connectMongo();
     if (connect) {
       console.log("connected succesfully");
     }
-
+    app.use(cors());
     app.use(express.json());
     app.use(AuthMiddleware);
     app.use("/server/uploads", express.static("./uploads"));
