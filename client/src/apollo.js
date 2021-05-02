@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const link = createUploadLink({ uri: "http://localhost:5000/graphql" });
+const link = createUploadLink({ uri: "https://localhost:8000/graphql" });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
