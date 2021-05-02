@@ -10,6 +10,7 @@ import Products from "./Components/Products/Products";
 import Navbar from "./Components/Navbar/Navbar";
 import SinglePost from "./pages/SinglePost";
 import UpdatePost from "./UpdatePost";
+import Payement from "./StripeCheckout";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/login" component={Login} />
               <Route path="/update/:id" component={UpdatePost} />
               <Route path="/posts/:postId" component={SinglePost} />
+              <Route path="/payment" component={Payement} />
             </Switch>
           </Container>
         </Router>
