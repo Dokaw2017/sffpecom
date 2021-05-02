@@ -6,6 +6,9 @@ import typeDefs from "./typeDefs/index.js";
 import resolvers from "./resolvers/index.js";
 import AuthMiddleware from "./middlewares/auth.js";
 import { schemaDirectives } from "./directives/index.js";
+import localhost from "./security/localhost.js";
+import production from "./security/production.js";
+import helmet from "helmet";
 
 const app = express();
 
@@ -35,9 +38,17 @@ const app = express();
       },
     });
 
-    server.applyMiddleware({ app });
+    app.use(helmet.hidePoweredBy());
 
-    app.listen(PORT, () => console.log(`🚀 Server is ready on port ${PORT}`));
+    server.applyMiddleware({ app });
+    process.env.NODE_ENV = process.env.NODE_ENV || "development";
+    if (process.env.NODE_ENV === "production") {
+      production(app, PORT);
+    } else {
+      localhost(app, 8000, PORT);
+    }
+
+    // app.listen(PORT, () => console.log(`🚀 Server is ready on port ${PORT}`));
   } catch (e) {
     console.log("server error: " + e.message);
   }
