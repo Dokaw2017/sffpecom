@@ -53,7 +53,7 @@ const app = express();
       resolvers,
       schemaDirectives,
       playground: IN_PROD,
-      context: ({ req }) => {
+      context: async ({ req }) => {
         let { isAuth, user } = req;
 
         return {
