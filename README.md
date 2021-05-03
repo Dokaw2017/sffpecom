@@ -16,5 +16,5 @@ It can be run:-1) npm install
 
 
 <img src="payement.png" width="400">
-<img src="client/store.png" width="400">
+<img src="/store.png" width="400">
 <img src="/client/src/assets/userproducts.png" width="400">
