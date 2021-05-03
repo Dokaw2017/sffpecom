@@ -15,6 +15,6 @@ It can be run:-1) npm install
 
 
 
-<img src="client/assets/during payement.png" width="400">
-<img src="client/assets/The main store.png" width="400">
-<img src="client/assets/user collection.png" width="400">
+<img src="client/assets/payement.png" width="400">
+<img src="client/assets/store.png" width="400">
+<img src="client/assets/userproducts.png" width="400">
