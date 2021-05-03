@@ -5,14 +5,12 @@ import {
   CardContent,
   CardActions,
   Typography,
-  IconButton,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
-import Payement from "../../../StripeCheckout";
+import Payement from "../../StripeCheckout";
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product }) => {
   console.log(product);
   const classes = useStyles();
 

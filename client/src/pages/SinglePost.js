@@ -16,7 +16,6 @@ const SinglePost = (props) => {
   const id = props.match.params.postId;
   console.log(id);
   const classes = useStyles();
-  //   const handleAddToCart = () => onAddToCart(product.id, 1);
 
   const { data: singleData, error: sehitet } = useQuery(POST_BY_ID, {
     variables: {

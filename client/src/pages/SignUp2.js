@@ -1,16 +1,10 @@
-import { useState, useContext } from "react";
 import "../App.css";
 import { Form, Button } from "semantic-ui-react";
 import { ApolloError, useMutation } from "@apollo/react-hooks";
 import { REGISTER_NEW_USER } from "../graphql/mutation";
 import { useForm } from "../hooks/Hooks";
-import { AuthContext } from "../context/auth";
 
 const Signup = (props) => {
-  //const [error, setError] = useState({});
-
-  // const context = useContext(AuthContext);
-
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
@@ -19,7 +13,6 @@ const Signup = (props) => {
 
   const [addUser, { loading }] = useMutation(REGISTER_NEW_USER, {
     update(_, { data: { register: userData } }) {
-      // context.login(userData);
       props.history.push("/");
     },
     variables: values,

@@ -17,8 +17,10 @@ import useStyles from "./styles";
 import { useQuery } from "@apollo/react-hooks";
 
 const PrimarySearchAppBar = ({ totalItems }) => {
-  console.log("navbar");
+  //This is for the mobile responsiveness
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+  //quering the current user
   const { data, client } = useQuery(GET_CURRENT_USER, {
     onError(error) {
       console.log("iiiiii", error);
@@ -31,6 +33,8 @@ const PrimarySearchAppBar = ({ totalItems }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+
+  //a logout functions that clears the id and token from the local storage
   const handlelogout = (e) => {
     try {
       e.preventDefault();
@@ -43,6 +47,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
     }
   };
 
+  //this is where the mobile menu bar starts
   const mobileMenuId = "primary-search-account-menu-mobile";
 
   const renderMobileMenu = (
@@ -71,6 +76,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
     </Menu>
   );
 
+  //The menu bar displays in two forms after getting the id of the logged in user from the local storage
   const store = localStorage.getItem("id") ? (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
@@ -90,6 +96,9 @@ const PrimarySearchAppBar = ({ totalItems }) => {
             />{" "}
             ShifaSuke
           </Typography>
+          <Button color="inherit" to="/add" component={Link}>
+            Add
+          </Button>
           <div className={classes.grow} />
           {location.pathname === "/" && (
             <div className={classes.button}>

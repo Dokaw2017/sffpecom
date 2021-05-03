@@ -26,15 +26,14 @@ const Payement = (props) => {
   };
 
   return (
-    <div style={{ paddingTop: 200 }}>
-      <h3>Happy Easters</h3>
+    <div>
       <StripeCheckout
         stripeKey="pk_test_51ImY50JxwYwM17ZqHVFbtOxudB6kMGrJ4VVRtyedViZIMKGJkSKoGAU47uFKbOF11JsqNvLx502EBaKUCqCJ0DOc00uZEen0rs"
         token={makePaymentt}
         name={productt.title}
         amount={productt.price * 100}
       >
-        <button>Buy react in just {productt.price}</button>
+        <button>Buy</button>
       </StripeCheckout>
     </div>
   );

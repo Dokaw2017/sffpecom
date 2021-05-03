@@ -1,14 +1,9 @@
-import { useState, useContext } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { LOGIN_USER } from "../graphql/query";
 import { useForm } from "../hooks/Hooks";
-import { Redirect } from "react-router";
-import { AuthContext } from "../context/auth";
 
 const Login = (props) => {
-  /* const context = useContext(AuthContext);
-  console.log(context); */
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: "",
     password: "",
@@ -17,7 +12,7 @@ const Login = (props) => {
   const [loginUser, { loading, data }] = useLazyQuery(LOGIN_USER, {
     update(_, { data: { login: userData } }) {
       console.log("userData", userData);
-      /*  context.login(userData); */
+
       props.history.push("/");
     },
     variables: values,

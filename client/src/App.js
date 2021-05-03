@@ -8,8 +8,9 @@ import Profile from "./Components/Profile";
 import Products from "./Components/Products/Products";
 import Navbar from "./Components/Navbar/Navbar";
 import SinglePost from "./pages/SinglePost";
-import UpdatePost from "./UpdatePost";
-import Payement from "./StripeCheckout";
+import UpdatePost from "./Components/UpdatePost";
+import Payement from "./Components/StripeCheckout";
+import { Upload } from "./Components/Upload";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/update/:id" component={UpdatePost} />
             <Route path="/posts/:postId" component={SinglePost} />
             <Route path="/payment" component={Payement} />
+            <Route path="/add" component={Upload} />
           </Switch>
         </Container>
       </Router>

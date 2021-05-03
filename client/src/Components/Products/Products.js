@@ -8,13 +8,15 @@ import { GET_All_POSTS } from "../../graphql/query";
 import { GET_CURRENT_USER } from "../../graphql/query";
 import { GET_USER_POSTS } from "../../graphql/query";
 
-const Products = ({ products, onAddToCart }) => {
+const Products = () => {
+  //query for the current logged in user
   const { data, error } = useQuery(GET_CURRENT_USER, {
     onError(error) {
       console.log("iiiiii", error);
     },
   });
 
+  //query responsible for the whole product in the shop. vistor not expected to login to visit the shop
   const { loading, data: allposts, error: allposterror } = useQuery(
     GET_All_POSTS,
     {
@@ -26,6 +28,7 @@ const Products = ({ products, onAddToCart }) => {
 
   console.log("product", allposterror);
 
+  //query responsible for the logged in user product
   const { loading: forUser, data: userposts } = useQuery(GET_USER_POSTS, {
     onError(error) {
       console.log("iiiiii", error);
@@ -34,8 +37,7 @@ const Products = ({ products, onAddToCart }) => {
 
   const classes = useStyles();
 
-  //if (!products.length) return <p>Loading...</p>;
-
+  //it sorts the template based on the logged in user which is represented by data.it doesnt show the description
   const store = data ? (
     <main className={classes.content}>
       <div className={classes.toolbar} />
@@ -55,7 +57,7 @@ const Products = ({ products, onAddToCart }) => {
         {allposts?.getAllPosts &&
           allposts?.getAllPosts.map((allpo) => (
             <Grid key={allpo.id} item xs={12} sm={6} md={4} lg={3}>
-              <Product product={allpo} onAddToCart={onAddToCart} />
+              <Product product={allpo} />
             </Grid>
           ))}
       </Grid>

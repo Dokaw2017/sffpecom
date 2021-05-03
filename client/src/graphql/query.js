@@ -45,6 +45,7 @@ export const GET_All_POSTS = gql`
       title
       description
       price
+      category
       featureImage
       createdAt
       updatedAt
@@ -59,6 +60,7 @@ export const GET_USER_POSTS = gql`
       title
       description
       price
+      category
       featureImage
       createdAt
       updatedAt

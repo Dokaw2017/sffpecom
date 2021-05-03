@@ -13,11 +13,10 @@ import { DELETE_POST_BY_ID } from "../../../graphql/mutation";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
-import UpdatePost from "../../../UpdatePost";
 
 const UserProduct = ({ userproduct }) => {
   const classes = useStyles();
-  console.log(userproduct.id);
+  //the query responsible for the delete operation
   const [
     deletePost,
     { error: deleteError, loading, data: deleteData },
@@ -64,7 +63,6 @@ const UserProduct = ({ userproduct }) => {
           aria-label="Edit"
           component={Link}
           to={`/update/${userproduct.id}`}
-          // onClick={() => <UpdatePost id={userproduct.id} />}
         >
           <EditIcon />
         </IconButton>

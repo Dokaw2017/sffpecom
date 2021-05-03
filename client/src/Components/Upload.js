@@ -1,28 +1,27 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { EDIT_POST_BY_ID } from "./graphql/mutation";
-import UserProduct from "./UpdatePost";
+import { CreateNewPost } from "../graphql/mutation";
 import { Form, Button } from "semantic-ui-react";
 
-const UpdatePost = (props) => {
-  const id = props.match.params.id;
-  console.log(id);
+export const Upload = () => {
   const [title, setTitle] = useState("le mee bebe bebe bebe ");
   const [description, setDescription] = useState(" hehe eee eege egeege");
   const [price, setPrice] = useState("");
+  const [image, setImage] = useState();
   const [category, setCategory] = useState("clothes");
+  const [file, setFile] = useState();
+  const id = localStorage.getItem("id");
 
-  const [updatePost, { data, error }] = useMutation(EDIT_POST_BY_ID, {
+  const [createNewPost, { error, loading, data }] = useMutation(CreateNewPost, {
     onError(error) {
       console.log("iiiiii", error);
     },
   });
-  console.log(error);
 
   return (
     <div className="regularInputs">
       <Form>
-        <h1>Edit Post</h1>
+        <h1>Create Post</h1>
         <input
           type="text"
           placeholder="title"
@@ -44,7 +43,13 @@ const UpdatePost = (props) => {
             setPrice(event.target.value);
           }}
         />
-
+        <input
+          type="file"
+          name="picture"
+          onChange={async (event) => {
+            await setFile(event.target.files[0]);
+          }}
+        />
         <select
           onChange={(event) => {
             setCategory(event.target.value);
@@ -59,28 +64,26 @@ const UpdatePost = (props) => {
 
         <div className="button">
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              console.log(id);
+            onClick={() => {
+              const featureImage = [];
+              featureImage.push(file);
 
-              updatePost({
+              createNewPost({
                 variables: {
-                  id,
                   title,
                   description,
                   price,
                   category,
+                  featureImage,
+                  id,
                 },
               });
-              console.log(data);
             }}
           >
-            Update Post
+            Create Post
           </button>
         </div>
       </Form>
     </div>
   );
 };
-
-export default UpdatePost;
