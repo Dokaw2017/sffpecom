@@ -5,7 +5,11 @@ import { Menu } from "semantic-ui-react";
 import { GET_CURRENT_USER } from "../graphql/query";
 
 const MenuBar = () => {
-  const { data, client } = useQuery(GET_CURRENT_USER);
+  const { data, client } = useQuery(GET_CURRENT_USER, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
   const pathname = window.location.pathname;
   const history = useHistory();
   const path = pathname === "/" ? "home" : pathname.substr(1);

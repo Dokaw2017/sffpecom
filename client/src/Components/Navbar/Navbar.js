@@ -17,8 +17,13 @@ import useStyles from "./styles";
 import { useQuery } from "@apollo/react-hooks";
 
 const PrimarySearchAppBar = ({ totalItems }) => {
+  console.log("navbar");
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const { data, client } = useQuery(GET_CURRENT_USER);
+  const { data, client } = useQuery(GET_CURRENT_USER, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
   const history = useHistory();
   const classes = useStyles();
   const location = useLocation();
@@ -27,10 +32,15 @@ const PrimarySearchAppBar = ({ totalItems }) => {
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
   const handlelogout = (e) => {
-    e.preventDefault();
-    window.localStorage.clear();
-    client.resetStore();
-    history.push("/");
+    try {
+      e.preventDefault();
+      window.localStorage.clear();
+      client.resetStore();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      history.push("/");
+    }
   };
 
   const mobileMenuId = "primary-search-account-menu-mobile";

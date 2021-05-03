@@ -23,6 +23,10 @@ const Signup = (props) => {
       props.history.push("/");
     },
     variables: values,
+
+    onError(error) {
+      console.log("iiiiii", error);
+    },
   });
 
   function registerUser() {

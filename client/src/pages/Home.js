@@ -6,15 +6,27 @@ import { GET_CURRENT_USER } from "../graphql/query";
 import { GET_USER_POSTS } from "../graphql/query";
 
 const Home = () => {
-  const { data, error } = useQuery(GET_CURRENT_USER);
+  const { data, error } = useQuery(GET_CURRENT_USER, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
   console.log("home", data, error);
 
-  const { loading, data: allposts } = useQuery(GET_All_POSTS);
+  const { loading, data: allposts } = useQuery(GET_All_POSTS, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
 
   if (allposts) {
     console.log(allposts);
   }
-  const { loading: forUser, data: userposts } = useQuery(GET_USER_POSTS);
+  const { loading: forUser, data: userposts } = useQuery(GET_USER_POSTS, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
 
   if (userposts) {
     console.log(userposts);

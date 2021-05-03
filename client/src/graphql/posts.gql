@@ -2,7 +2,8 @@ query GET_ALL_POSTS {
   getAllPosts {
     id
     title
-    content
+    description
+    price
     createdAt
     featureImage
     updatedAt
@@ -13,7 +14,20 @@ query POST_BY_ID($id: ID!) {
   getPostById(id: $id) {
     id
     title
-    content
+    description
+    price
+    createdAt
+    featureImage
+    updatedAt
+  }
+}
+
+query GET_POST_BY_Category($category: String!) {
+  getPostByCategory(category: $category) {
+    id
+    title
+    description
+    price
     createdAt
     featureImage
     updatedAt
@@ -22,7 +36,8 @@ query POST_BY_ID($id: ID!) {
 
 mutation CREATE_NEW_POST(
   $title: String!
-  $content: String!
+  $description: String!
+  $price:String!
   $featureImage: String
 ) {
   createNewPost(

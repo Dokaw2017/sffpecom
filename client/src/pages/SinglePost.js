@@ -22,6 +22,10 @@ const SinglePost = (props) => {
     variables: {
       id,
     },
+
+    onError(error) {
+      console.log("iiiiii", error);
+    },
   });
 
   let postMarkUp;

@@ -10,12 +10,11 @@ import {
 import { Link } from "react-router-dom";
 import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
+import Payement from "../../../StripeCheckout";
 
 const Product = ({ product, onAddToCart }) => {
   console.log(product);
   const classes = useStyles();
-
-  const handleAddToCart = () => onAddToCart(product.id, 1);
 
   return (
     <Card className={classes.root}>
@@ -37,9 +36,7 @@ const Product = ({ product, onAddToCart }) => {
         </div>
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
-          <AddShoppingCart />
-        </IconButton>
+        <Payement product={product} />
       </CardActions>
     </Card>
   );

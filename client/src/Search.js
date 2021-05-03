@@ -4,33 +4,10 @@ import Product from "./Product/Product";
 import UserProduct from "./Product/UserProduct";
 import useStyles from "./styles";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_All_POSTS } from "../../graphql/query";
-import { GET_CURRENT_USER } from "../../graphql/query";
-import { GET_USER_POSTS } from "../../graphql/query";
+import { Get_Post_By_Category } from "./graphql/query";
 
 const Products = ({ products, onAddToCart }) => {
-  const { data, error } = useQuery(GET_CURRENT_USER, {
-    onError(error) {
-      console.log("iiiiii", error);
-    },
-  });
-
-  const { loading, data: allposts, error: allposterror } = useQuery(
-    GET_All_POSTS,
-    {
-      onError(error) {
-        console.log("iiiiii", error);
-      },
-    }
-  );
-
-  console.log("product", allposterror);
-
-  const { loading: forUser, data: userposts } = useQuery(GET_USER_POSTS, {
-    onError(error) {
-      console.log("iiiiii", error);
-    },
-  });
+  const { data, error } = useQuery(Get_Post_By_Category);
 
   const classes = useStyles();
 

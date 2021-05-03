@@ -21,7 +21,11 @@ const UserProduct = ({ userproduct }) => {
   const [
     deletePost,
     { error: deleteError, loading, data: deleteData },
-  ] = useMutation(DELETE_POST_BY_ID);
+  ] = useMutation(DELETE_POST_BY_ID, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
 
   return (
     <Card className={classes.root}>

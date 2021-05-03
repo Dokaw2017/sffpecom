@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUp2 from "./pages/SignUp2";
 import Login from "./pages/Login";
 import Profile from "./Components/Profile";
-import { AuthProvider } from "./context/auth";
 import Products from "./Components/Products/Products";
 import Navbar from "./Components/Navbar/Navbar";
 import SinglePost from "./pages/SinglePost";
@@ -15,22 +14,20 @@ import Payement from "./StripeCheckout";
 const App = () => {
   return (
     <div className="APP">
-      <AuthProvider>
-        <Router>
-          <Container>
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={Products} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/signup" component={SignUp2} />
-              <Route path="/login" component={Login} />
-              <Route path="/update/:id" component={UpdatePost} />
-              <Route path="/posts/:postId" component={SinglePost} />
-              <Route path="/payment" component={Payement} />
-            </Switch>
-          </Container>
-        </Router>
-      </AuthProvider>
+      <Router>
+        <Container>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Products} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/signup" component={SignUp2} />
+            <Route path="/login" component={Login} />
+            <Route path="/update/:id" component={UpdatePost} />
+            <Route path="/posts/:postId" component={SinglePost} />
+            <Route path="/payment" component={Payement} />
+          </Switch>
+        </Container>
+      </Router>
     </div>
   );
 };

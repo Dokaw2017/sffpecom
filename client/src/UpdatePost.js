@@ -12,7 +12,11 @@ const UpdatePost = (props) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("clothes");
 
-  const [updatePost, { data, error }] = useMutation(EDIT_POST_BY_ID);
+  const [updatePost, { data, error }] = useMutation(EDIT_POST_BY_ID, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
   console.log(error);
 
   return (

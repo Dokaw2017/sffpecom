@@ -12,7 +12,11 @@ export const Upload = () => {
   const [file, setFile] = useState();
   const id = localStorage.getItem("id");
 
-  const [createNewPost, { error, loading, data }] = useMutation(CreateNewPost);
+  const [createNewPost, { error, loading, data }] = useMutation(CreateNewPost, {
+    onError(error) {
+      console.log("iiiiii", error);
+    },
+  });
 
   return (
     <div className="regularInputs">

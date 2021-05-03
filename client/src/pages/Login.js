@@ -21,6 +21,10 @@ const Login = (props) => {
       props.history.push("/");
     },
     variables: values,
+
+    onError(error) {
+      console.log("iiiiii", error);
+    },
   });
   if (data) {
     window.localStorage.setItem("token", data.loginUser.token);

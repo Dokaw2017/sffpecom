@@ -1,16 +1,12 @@
-import { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
-const Payement = () => {
-  const [product, setProduct] = useState({
-    name: "React from facebook",
-    price: 10,
-    productBy: "facebook",
-  });
+const Payement = (props) => {
+  const productt = props.product;
+  console.log("xakk", productt);
 
-  const makePayment = (token) => {
+  const makePaymentt = (token) => {
     const body = {
-      product,
+      productt,
       token,
     };
     const headers = {
@@ -34,32 +30,14 @@ const Payement = () => {
       <h3>Happy Easters</h3>
       <StripeCheckout
         stripeKey="pk_test_51ImY50JxwYwM17ZqHVFbtOxudB6kMGrJ4VVRtyedViZIMKGJkSKoGAU47uFKbOF11JsqNvLx502EBaKUCqCJ0DOc00uZEen0rs"
-        token={makePayment}
-        name="buy react"
-        amount={product.price * 100}
+        token={makePaymentt}
+        name={productt.title}
+        amount={productt.price * 100}
       >
-        <button>Buy react in just {product.price}</button>
+        <button>Buy react in just {productt.price}</button>
       </StripeCheckout>
     </div>
   );
 };
 
 export default Payement;
-
-{
-  /* <StripeCheckout
-  
-  stripeKey=""
-  
-  token={EnablePurchase}
-  
-  name="Buy"
-  
-  amount={SingleProduct.Price * 100}
-  
-  >
-  
-  <button className="Buy-btn">Purchase</button>
-  
-  </StripeCheckout> */
-}

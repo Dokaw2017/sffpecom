@@ -65,3 +65,17 @@ export const GET_USER_POSTS = gql`
     }
   }
 `;
+
+export const Get_Post_By_Category = gql`
+  query($category: String!) {
+    getPostByCategory(category: $category) {
+      id
+      title
+      description
+      price
+      createdAt
+      featureImage
+      updatedAt
+    }
+  }
+`;
