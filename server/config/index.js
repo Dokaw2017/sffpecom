@@ -9,4 +9,5 @@ export const {
   URL = `${BASE_URL}${PORT}`,
   IN_PROD = MODE !== "prod",
   SECRET,
+  STRIP_SECRET_TEST,
 } = parsed;
