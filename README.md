@@ -13,17 +13,16 @@ _Description_
 An Ecommerce up for shopping and selling any kind of product using the stripe online payment system.It can be used by anyone or anystore of small sizes. The projectb is build for the fulfuilment of the serverside course.
 
 
-Technology Stack
+_Technology Stack_
 
-TECHNOLOGY USED
 • Node • Express • socket.io • apollo-server-express • graphql • mongoose • passport • stripe • jsonwebtoken • multer • passport-jwt • passport-local • helmet • cors • fs • dotenv
 
-INSTALLATION
+_INSTALLATION_
 • Fork this repo and clone to your computer. Next, 'cd server' then run 'npm install' to install all the dependencies listed in package.json file. if any problems try to trun 'npm audit fix'. and finaly run 'nodemon server.js'.
 
 
 
-Login
+_Login_
    query loginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {
       token
@@ -35,7 +34,7 @@ Login
     }
   }
 
-GET_CURRENT_USER 
+_GET_CURRENT_USER_
   query {
     authUserProfile {
       username
@@ -45,7 +44,7 @@ GET_CURRENT_USER
   }
 
 
-POST_BY_ID 
+_POST_BY_ID_
   query getPostById($id: ID!) {
     getPostById(id: $id) {
       id
@@ -59,7 +58,7 @@ POST_BY_ID
     }
   }
 
-GET_All_POSTS 
+_GET_All_POSTS_ 
   query {
     getAllPosts {
       id
@@ -74,7 +73,7 @@ GET_All_POSTS
   }
 
 
-GET_USER_POSTS 
+_GET_USER_POSTS_ 
   query {
     getUserPosts {
       id
@@ -89,7 +88,7 @@ GET_USER_POSTS
   }
 
 
-Get_Post_By_Category 
+_Get_Post_By_Category_
   query($category: String!) {
     getPostByCategory(category: $category) {
       id
@@ -102,7 +101,7 @@ Get_Post_By_Category
     }
   }
   
- CreateNewPost 
+ _CreateNewPost_
   mutation CreateNewPost(
     $title: String!
     $description: String!
@@ -130,7 +129,7 @@ Get_Post_By_Category
   }
 
 
-const REGISTER_NEW_USER 
+_REGISTER_NEW_USER_ 
   mutation registerUser(
     $username: String!
     $email: String!
@@ -149,7 +148,7 @@ const REGISTER_NEW_USER
   }
 
 
-DELETE_POST_BY_ID 
+_DELETE_POST_BY_ID_ 
   mutation deletePostById($id: ID!, $owner: ID!) {
     deletePostById(id: $id, owner: $owner) {
       message
@@ -158,7 +157,7 @@ DELETE_POST_BY_ID
   }
 
 
-EDIT_POST_BY_ID
+_EDIT_POST_BY_ID_
   mutation updatePost(
     $id: ID!
     $title: String
@@ -181,7 +180,7 @@ EDIT_POST_BY_ID
 
 
 
-QUESTIONS
+_QUESTIONS_
 • If you have any questions, concerns or suggestions please feel free to contact me with the link below. GitHub: "nebiw@metropolia.fi"
 
 
