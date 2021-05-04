@@ -1,14 +1,14 @@
 
 # Shifa-Suk
 
-# H1 Table of Contents
-Description
-Dependencices Used
-Installation
-Queries Samples
-Questions
+# Table of Contents
+* Description
+* Dependencices Used
+* Installation
+* Queries Samples
+* Questions
 
-Description
+_Description_
 
 An Ecommerce up for shopping and selling any kind of product using the stripe online payment system.It can be used by anyone or anystore of small sizes. The projectb is build for the fulfuilment of the serverside course.
 
