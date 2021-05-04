@@ -24,6 +24,7 @@ _INSTALLATION_
 
 
 _Login_
+
    query loginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {
       token
@@ -36,6 +37,7 @@ _Login_
   }
 
 _GET_CURRENT_USER_
+
   query {
     authUserProfile {
       username
@@ -46,6 +48,7 @@ _GET_CURRENT_USER_
 
 
 _POST_BY_ID_
+
   query getPostById($id: ID!) {
     getPostById(id: $id) {
       id
@@ -60,6 +63,7 @@ _POST_BY_ID_
   }
 
 _GET_All_POSTS_ 
+
   query {
     getAllPosts {
       id
@@ -75,6 +79,7 @@ _GET_All_POSTS_
 
 
 _GET_USER_POSTS_ 
+
   query {
     getUserPosts {
       id
@@ -90,6 +95,7 @@ _GET_USER_POSTS_
 
 
 _Get_Post_By_Category_
+
   query($category: String!) {
     getPostByCategory(category: $category) {
       id
@@ -103,6 +109,7 @@ _Get_Post_By_Category_
   }
   
  _CreateNewPost_
+ 
   mutation CreateNewPost(
     $title: String!
     $description: String!
@@ -131,6 +138,7 @@ _Get_Post_By_Category_
 
 
 _REGISTER_NEW_USER_ 
+
   mutation registerUser(
     $username: String!
     $email: String!
@@ -150,6 +158,7 @@ _REGISTER_NEW_USER_
 
 
 _DELETE_POST_BY_ID_ 
+
   mutation deletePostById($id: ID!, $owner: ID!) {
     deletePostById(id: $id, owner: $owner) {
       message
@@ -159,6 +168,7 @@ _DELETE_POST_BY_ID_
 
 
 _EDIT_POST_BY_ID_
+
   mutation updatePost(
     $id: ID!
     $title: String
@@ -182,6 +192,7 @@ _EDIT_POST_BY_ID_
 
 
 _QUESTIONS_
+
 • If you have any questions, concerns or suggestions please feel free to contact me with the link below. GitHub: "nebiw@metropolia.fi"
 
 
