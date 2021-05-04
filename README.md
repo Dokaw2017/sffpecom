@@ -23,253 +23,166 @@ INSTALLATION
 
 
 
-link to heroku: https://e-comm-magasin.herokuapp.com/ note jelastic might be sleeping!!
-
-
-Queries
-note! token is required since all endpoints are protected. so login and use bearer token in header!
-
 Login
-    query{
-            login(
-                username:String!,
-                 password:String!
-                 )
-        {
-           id
-            username
-             token
-              Verified
-            }
-        }
-Register
-      mutation{
-            AddClient(
-                username:String!,
-                 password:String!,
-                  Email:String!
-                  )
-        {
-         id
-         username
-        }
-        }
-GetBidings
-      query {
-      GetBidings {
+   query loginUser($username: String!, $password: String!) {
+    loginUser(username: $username, password: $password) {
+      token
+      user {
         id
-        Title
-        Initialprice
-        Images
-        participants
-        Owner {
-          username
-        }
-
+        username
+        email
       }
-    }
--CreateBiding
-
-     mutation {
-          AddBiding(
-            Title: String!
-            Initialprice: Int
-            Images: String
-            Owner: ID!
-             
-          ) {
-            Title
-          }
-        }
--GetBidingByID
-
-  	   query {
-            GetBidingByID(id:ID!) {
-              id
-              Title
-              Initialprice
-              Images
-              Owner {
-                username
-              }
-              
-            }
-          }
--GetAllCategories
-
-    query{
-                GetCategories{
-                    Name
-                     TotalItems
-                      Images
-                    }
-                }
-
--DeleteFavourite
-
-  mutation {
-        DeleteFavourite(id:ID!) {
-              id
-        }
-      }
--GetClientFavourites
-
-query {
-                GetUserFavourites(id: ID! ) {
-                  id
-                  Products {
-                    Title
-                    Price
-                    Images
-                  }
-                }
-              }
--AddFavourite
-
-    mutation {
-            AddFavourites(
-              Owner: ID!
-              Products: ID!
-            ) {
-              id
-              Owner {
-                username
-              }
-              Products {
-                Title
-              }
-            }
-          }
--GetProductsByCategory
-
-    query{
-              GetProductsByCategory(Category:String!){
-                id
-                Title
-                  Price
-                  Images
-                }
-              }
--GetOwnProducts
-
-    query {
-              GetProductsByClient(id: ID! ) {
-              
-                id
-                Title
-                Price
-                Images
-                OnStore
-                Quantity
-                Description
-                
-                CodePromo {
-                  id
-                  Expiry
-                  Percentage
-                  Code
-                }
-              }
-            }
--ModifyProduct
-
-  mutation {
-        UpdateProduct(id: ID!,Title:String!, Price: Int!, Description:String!, Quantity: Int! ) {
-          id
-          Title
-           
-        }
-      }
--DeleteProduct
-
-  mutation {
-          DeleteProducts(id: ID!){
-          id
-          }
-        }
--ADDProduct
-
-    
-   mutation {
-          AddProduct(
-            Title: String
-            Price: Int
-            Category: String
-            Description: String
-            Quantity: Int
-            CodePromo: String
-            Owner: ID!
-            Images: String!
-          ){
-          id 
-          Title
-          OnStore
-          }
-        }
--AddCodePromo
-
-  mutation{
-            AddDiscount(
-              Percentage:Int,
-               Code:String,
-               Expiry: String          form of 'YYYY/MM/dd'
-                )
-                {
-                  id
-                  Expiry
-                }
-              }
--ModifyUser
-
-    mutation {
-    UpdateClient(
-      id: ID!
-      username: String
-      Email: String
-    ) {
-      id
-      username
-      Email
-      Joined
     }
   }
--GetUserById
 
-    query{
-        GetClientById(
-          id:ID!
-          ){
-            id
-             username
-              Email
-               Totalproducts
-                Joined
-                 Verified
-                  ClientLevel
-                }
-              }
--GetProductById
+GET_CURRENT_USER 
+  query {
+    authUserProfile {
+      username
+      email
+      id
+    }
+  }
 
-  query{
-          GetProductbyID( 
-              id:ID!
-              ){
-                  id
-                   Title
-                    OnStore 
-                     Owner{
-                         username
-                         Verified
-                        } 
-                      Price  
-                       Images
-                        Description
-                        Quantity
-                        
-                    }
-                }
+
+POST_BY_ID 
+  query getPostById($id: ID!) {
+    getPostById(id: $id) {
+      id
+      title
+      description
+      category
+      price
+      createdAt
+      featureImage
+      updatedAt
+    }
+  }
+
+GET_All_POSTS 
+  query {
+    getAllPosts {
+      id
+      title
+      description
+      price
+      category
+      featureImage
+      createdAt
+      updatedAt
+    }
+  }
+
+
+GET_USER_POSTS 
+  query {
+    getUserPosts {
+      id
+      title
+      description
+      price
+      category
+      featureImage
+      createdAt
+      updatedAt
+    }
+  }
+
+
+Get_Post_By_Category 
+  query($category: String!) {
+    getPostByCategory(category: $category) {
+      id
+      title
+      description
+      price
+      createdAt
+      featureImage
+      updatedAt
+    }
+  }
+  
+ CreateNewPost 
+  mutation CreateNewPost(
+    $title: String!
+    $description: String!
+    $price: String!
+    $category: String!
+    $featureImage: [Upload]!
+    $id: ID!
+  ) {
+    createNewPost(
+      newPost: {
+        title: $title
+        description: $description
+        price: $price
+        category: $category
+        featureImage: $featureImage
+        author: $id
+      }
+    ) {
+      title
+      description
+      price
+      category
+      featureImage
+    }
+  }
+
+
+const REGISTER_NEW_USER 
+  mutation registerUser(
+    $username: String!
+    $email: String!
+    $password: String!
+  ) {
+    registerUser(
+      newUser: { username: $username, email: $email, password: $password }
+    ) {
+      token
+      user {
+        id
+        username
+        email
+      }
+    }
+  }
+
+
+DELETE_POST_BY_ID 
+  mutation deletePostById($id: ID!, $owner: ID!) {
+    deletePostById(id: $id, owner: $owner) {
+      message
+      success
+    }
+  }
+
+
+EDIT_POST_BY_ID
+  mutation updatePost(
+    $id: ID!
+    $title: String
+    $description: String
+    $category: String
+    $price: String
+  ) {
+    updatePost(
+      post: {
+        id: $id
+        title: $title
+        description: $description
+        category: $category
+        price: $price
+      }
+    ) {
+      id
+    }
+  }
+
+
+
 QUESTIONS
-• If you have any questions, concerns or suggestions please feel free to contact me with the link below. GitHub: "snoopafr@gmail.com"
+• If you have any questions, concerns or suggestions please feel free to contact me with the link below. GitHub: "nebiw@metropolia.fi"
 
 
 
