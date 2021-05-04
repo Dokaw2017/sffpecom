@@ -1,7 +1,7 @@
 
 # Shifa-Suk
 
-Table of Contents
+# H1 Table of Contents
 Description
 Dependencices Used
 Installation
