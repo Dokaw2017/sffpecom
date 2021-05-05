@@ -25,6 +25,7 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
 
 ## Login
 
+   ````
    query loginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {
       token
@@ -35,6 +36,8 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
       }
     }
   }
+  
+  ````
 
 ## GET_CURRENT_USER
 
