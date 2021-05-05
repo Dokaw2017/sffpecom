@@ -41,6 +41,7 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
 
 ## GET_CURRENT_USER
 
+   ````
   query {
     authUserProfile {
       username
@@ -49,9 +50,11 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
     }
   }
 
+ ````
 
 ## POST_BY_ID
 
+   ````
   query getPostById($id: ID!) {
     getPostById(id: $id) {
       id
@@ -64,9 +67,12 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
       updatedAt
     }
   }
+  
+   ````
 
 ## GET_All_POSTS
 
+   ````
   query {
     getAllPosts {
       id
@@ -79,10 +85,13 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
       updatedAt
     }
   }
+   
+   ````
 
 
 ## GET_USER_POSTS
 
+   ````
   query {
     getUserPosts {
       id
@@ -95,10 +104,13 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
       updatedAt
     }
   }
+  
+   ````
 
 
 ## Get_Post_By_Category
 
+   ````
   query($category: String!) {
     getPostByCategory(category: $category) {
       id
@@ -111,8 +123,11 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
     }
   }
   
+   ````
+  
  ## CreateNewPost
  
+   ````
   mutation CreateNewPost(
     $title: String!
     $description: String!
@@ -139,9 +154,11 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
     }
   }
 
+ ````
 
 ## REGISTER_NEW_USER
 
+   ````
   mutation registerUser(
     $username: String!
     $email: String!
@@ -158,21 +175,27 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
       }
     }
   }
+  
+   ````
 
 
 ## DELETE_POST_BY_ID
 
-  mutation deletePostById($id: ID!, $owner: ID!) {
+  ````
+ mutation deletePostById($id: ID!, $owner: ID!) {
     deletePostById(id: $id, owner: $owner) {
       message
       success
     }
   }
+  
+   ````
 
 
 ## EDIT_POST_BY_ID
 
-  mutation updatePost(
+  ````
+ mutation updatePost(
     $id: ID!
     $title: String
     $description: String
@@ -192,6 +215,7 @@ An Ecommerce up for shopping and selling any kind of product using the stripe on
     }
   }
 
+ ````
 
 
 ## QUESTIONS
