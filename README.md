@@ -12,7 +12,7 @@ https://washera.herokuapp.com/
 
 ## Description
 
-An Ecommerce up for shopping and selling any kind of product using the stripe online payment system.It can be used by anyone or anystore of small sizes. The projectb is build for the fulfuilment of the serverside course.
+An Ecommerce up for shopping and selling any kind of product using the stripe online payment system.Users can add edit and delete ther products and get all the lists with proper updates. It can be used by anyone or anystore of small sizes. The projectb is build for the fulfuilment of the serverside course.
 
 
 ## Technology Stack
