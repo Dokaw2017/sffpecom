@@ -50,7 +50,6 @@ mutation DELETE_POST_BY_ID($id: ID!) {
     success
   }
 }
-
 mutation REGISTER_NEW_USER {
   registerUser(
     newUser: {
@@ -97,3 +96,4 @@ mutation UP($featureImage: Upload) {
     featureImage
   }
 }
+

@@ -1,3 +1,4 @@
+
 import { createWriteStream } from "fs";
 import shortid from "shortid";
 import { URL } from "../config/index.js";
@@ -27,6 +28,7 @@ export default {
       console.log(file);
       const upload = await processUpload(file);
       return upload;
+
     },
   },
 };

@@ -7,6 +7,7 @@ export default gql`
     getPostsByLimitAndPage(page: Int, limit: Int): PostPaginator
     getUserPosts: [Post] @isAuth
     getPostByCategory(category: String!): [Post]
+
   }
   extend type Mutation {
     createNewPost(newPost: NewPostInput): Post!
@@ -71,6 +72,12 @@ export default gql`
     currentPage: Int!
     hasPrevPage: Boolean!
     hasNextPage: Boolean!
+  }
+
+  type PostNotification {
+    id: ID!
+    message: String!
+    success: Boolean!
   }
 
   type PostNotification {

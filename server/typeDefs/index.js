@@ -12,5 +12,3 @@ const linkSchema = gql`
     _: Boolean
   }
 `;
-
-export default [linkSchema, post, user, image];
