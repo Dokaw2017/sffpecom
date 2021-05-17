@@ -1,6 +1,23 @@
-import { parse, join } from "path";
-import { createWriteStream, createReadStream } from "fs";
+
+import { createWriteStream } from "fs";
+import shortid from "shortid";
 import { URL } from "../config/index.js";
+
+const storeUpload = async ({ stream, filename, mimetype }) => {
+  const id = shortid.generate();
+  let path = `uploads/${id}-${filename}`;
+  await stream.pipe(createWriteStream(path));
+  path = `${URL}/server/${path}`;
+  return { filename, id, mimetype, path };
+};
+
+const processUpload = async (upload) => {
+  const { createReadStream, filename, mimetype } = await upload;
+  console.log(filename, mimetype);
+  const stream = createReadStream();
+  const file = await storeUpload({ stream, filename, mimetype });
+  return file;
+};
 
 export default {
   Query: {
@@ -8,21 +25,10 @@ export default {
   },
   Mutation: {
     imageUploader: async (_, { file }) => {
-      let { filename, createReadStream } = await file;
-      let stream = createReadStream();
-      let { ext, name } = parse(filename);
+      console.log(file);
+      const upload = await processUpload(file);
+      return upload;
 
-      name = name.replace(/([^a-z0-9 ]+)/gi, "-").replace(" ", "_");
-      let serverFile = join(
-        __dirname,
-        `../uploads/${name}-${new Date()}${ext}`
-      );
-      let writeStream = await createWriteStream(serverFile);
-      await stream.pipe(writeStream);
-
-      serverFile = `${URL}${serverFile.split("uploads")[1]}`;
-
-      return serverFile;
     },
   },
 };

@@ -5,6 +5,13 @@ export default gql`
     info: String!
   }
   extend type Mutation {
-    imageUploader(file: Upload): String!
+    imageUploader(file: Upload!): File!
+  }
+
+  type File {
+    id: ID!
+    filename: String!
+    mimetype: String!
+    path: String!
   }
 `;

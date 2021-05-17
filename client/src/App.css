@@ -1,0 +1,19 @@
+.form-container {
+  width: 400px;
+  margin: auto;
+  padding-top: 100px;
+}
+.page-title {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+.regularInputs {
+  padding-top: 100px;
+  width: 300px;
+  margin: auto;
+}
+.profile {
+  padding-top: 100px;
+}
